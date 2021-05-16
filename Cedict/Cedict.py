@@ -37,7 +37,7 @@ class CeDict(Dictionary):
             if re.search('^#', line) or re.search('[0-9a-zA-Z\W]', line.split(' ')[0]) or len(line.split(' ')[0]) < 2:
                 continue
             # 去除生僻字和方言
-            if line.__contains__("coll.") or line.__contains__("broad"):
+            if line.__contains__("没谁了") or line.__contains__('ㄅㄧㄤˋ') or  line.__contains__("𰻝𰻝面"):
                 continue
             # 现在：既不是注释行，又不是词行，又不是含有英文和数字的行
             # Cedict 包含三个部分：

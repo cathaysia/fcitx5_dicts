@@ -1,3 +1,5 @@
 /data/
 /dict/
 /.idea/
+/__pycache/
+*.pyc
