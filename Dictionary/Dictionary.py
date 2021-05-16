@@ -10,7 +10,7 @@ class Word:
         self.freq = freq
 
     def __str__(self):
-        return "%s %s %s"%(self.word, self.pinyin, self.freq)
+        return "%s\t%s\t%s"%(self.word.lower(), self.pinyin.lower(), self.freq)
 
 
 class Dictionary:

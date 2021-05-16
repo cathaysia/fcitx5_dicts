@@ -36,6 +36,9 @@ class CeDict(Dictionary):
         for line in dict_lines:
             if re.search('^#', line) or re.search('[0-9a-zA-Z\W]', line.split(' ')[0]) or len(line.split(' ')[0]) < 2:
                 continue
+            # 去除生僻字和方言
+            if line.__contains__("coll.") or line.__contains__("broad"):
+                continue
             # 现在：既不是注释行，又不是词行，又不是含有英文和数字的行
             # Cedict 包含三个部分：
             # 繁体 简体 [拼音] 注释
@@ -46,6 +49,7 @@ class CeDict(Dictionary):
             while flag != None:
                 pinyin = pinyin.replace(flag.group(), '')
                 flag = re.search(r"[\[\]0-9]", pinyin)
+            pinyin = pinyin.replace('u:', 'v')
             # print(line)
             yield (simp, pinyin)
         pass
