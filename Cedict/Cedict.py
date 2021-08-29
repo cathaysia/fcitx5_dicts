@@ -10,22 +10,6 @@ import requests
 class CeDict(Dictionary):
     def __init__(self, data_path: str):
         Dictionary.__init__(self, data_path)
-        # 检查数据
-        if not os.path.exists(path.join(self.data_path, "cedict_ts.u8")):
-            # 下载文件
-            print("file %s not exists, dowloading" % path.join(self.data_path, "cedict_ts.u8"))
-            headers = {
-                "User-Agent": "Mozilla/5.0 (X11; Linux x86_64; rv:88.0) Gecko/20100101 Firefox/88.0"
-            }
-            r = requests.get("https://www.mdbg.net/chinese/export/cedict/cedict_1_0_ts_utf-8_mdbg.zip", headers=headers)
-            if r.status_code != 200:
-                raise Exception("Cedict downlaod fail!")
-            zip_path = path.join(self.data_path, "Cedict.zip")
-            with open(zip_path, 'wb') as f:
-                f.write(r.content)
-            print("extract file to %s" % zip_path)
-            os.system("zip %s -d %s" % (zip_path, self.data_path))
-        # 现在存在 self.data_path/cedict_ts.u8
         self.dict_path = path.join(self.data_path, "cedict_ts.u8")
 
     def generate_line(self) -> Generator:
@@ -37,7 +21,7 @@ class CeDict(Dictionary):
             if re.search('^#', line) or re.search('[0-9a-zA-Z\W]', line.split(' ')[0]) or len(line.split(' ')[0]) < 2:
                 continue
             # 去除生僻字和方言
-            if line.__contains__("没谁了") or line.__contains__('ㄅㄧㄤˋ') or  line.__contains__("𰻝𰻝面"):
+            if line.__contains__("没谁了") or line.__contains__('ㄅㄧㄤˋ') or line.__contains__("𰻝𰻝面"):
                 continue
             # 现在：既不是注释行，又不是词行，又不是含有英文和数字的行
             # Cedict 包含三个部分：

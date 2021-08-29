@@ -2,5 +2,5 @@
 /dict/
 /.idea/
 /__pycache/
-*.pyc
+**.pyc
 1.txt
